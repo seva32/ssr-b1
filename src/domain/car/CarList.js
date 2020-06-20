@@ -1,10 +1,9 @@
-import React, { Fragment } from "react";
-import { useCarState, useCarDispatch } from "../state/context";
-import { getCars, deleteCar, getEmployee } from "../state/actions";
-import useAsyncDataFetch from "./Hooks/useAsyncDataFetch";
-import { withTranslation } from 'react-i18next';
+import React, { Fragment } from 'react';
+import { useCarState, useCarDispatch } from '../../state/services/context';
+import { getCars, deleteCar, getEmployee } from '../../state/services/actions';
+import useAsyncDataFetch from './Hooks/useAsyncDataFetch';
 
-const CarList = ({ t }) => {
+const CarList = () => {
   const { cars, ssr, employee } = useCarState();
   const dispatch = useCarDispatch();
 
@@ -28,8 +27,8 @@ const CarList = ({ t }) => {
   if (isLoading || isLoadingEmp) return <Fragment>Loading...</Fragment>;
 
   return (
-    <div className="App">
-      <div className="title">{t('labelEmployee')}</div>
+    <div className="car">
+      <div className="title">Text</div>
 
       <div className="employee-list" data-testid="employee-list">
         {employee.map(u => {
@@ -41,10 +40,10 @@ const CarList = ({ t }) => {
         })}
       </div>
 
-      <div className="title">{t('labelCars')}</div>
+      <div className="title">Text</div>
 
       <button className="btn" onClick={refresh}>
-        {t('labelRefresh')}
+        Refresh
       </button>
 
       <div className="car-list" data-testid="car-list">
@@ -53,7 +52,7 @@ const CarList = ({ t }) => {
             <div className="list-content" key={car.name} data-testid="car">
               <div className="cell">
                 <a className="btn-select" href={`/cars/${car.id}`}>
-                  {t('labelSelect')}
+                  Select
                 </a>
               </div>
               <div className="cell">
@@ -67,7 +66,7 @@ const CarList = ({ t }) => {
                   data-testid="btn-delete"
                   onClick={() => removeCar(car.id)}
                 >
-                  {t('labelDelete')}
+                  Delete
                 </button>
               </div>
             </div>
@@ -78,4 +77,4 @@ const CarList = ({ t }) => {
   );
 };
 
-export default withTranslation()(CarList);
+export default CarList;

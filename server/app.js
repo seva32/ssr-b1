@@ -9,6 +9,8 @@ import bodyParser from 'body-parser';
 import { renderServerSideApp } from './renderServerSideApp';
 import { todoRoutes } from './todoApi';
 
+import router from './routes/routes';
+
 const { PUBLIC_URL = '' } = process.env;
 
 // This export is used by our initialization code in /scripts
@@ -38,6 +40,48 @@ app.use(morgan('tiny'));
 
 // Demo API endpoints
 app.use(todoRoutes());
+
+// ssr with context
+app.use(router);
+
+// Cars list
+app.route('/api/cars').get((req, res) => {
+  res.sendFile(__dirname + '/public/cars.json');
+});
+
+// Individual cars
+app.route('/api/cars/1').get((req, res) => {
+  res.sendFile(__dirname + '/public/car_1.json');
+});
+
+app.route('/api/cars/2').get((req, res) => {
+  res.sendFile(__dirname + '/public/car_2.json');
+});
+
+app.route('/api/cars/3').get((req, res) => {
+  res.sendFile(__dirname + '/public/car_3.json');
+});
+
+// Employee list
+app.route('/api/employee').get((req, res) => {
+  res.sendFile(__dirname + '/public/employee.json');
+});
+
+// Route for handling 404 requests(unavailable routes)
+app.use(function(req, res, next) {
+  res.status(404).send("Sorry can't find that!");
+});
+
+//500 error handler
+function clientErrorHandler(err, req, res, next) {
+  if (req.xhr) {
+    res.status(500).send({ error: 'Something failed!' });
+  } else {
+    next(err);
+  }
+}
+
+app.use(clientErrorHandler);
 
 app.use(
   responseTime((_req, res, time) => {

@@ -1,0 +1,24 @@
+.car {
+  position: relative;
+  width: 100vw;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  color: blueviolet;
+}
+
+.subtitle {
+  color: black;
+}
+
+.data {
+  color: greenyellow;
+}
+
+.part {
+  color: green($color: #086310);
+}

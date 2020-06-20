@@ -3,7 +3,7 @@ import { Switch, Route, NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Loadable from 'react-loadable';
 
-import { ProductProvider } from './state/context';
+import { CarProvider } from './state/services/context';
 import './styles/index.scss';
 
 const LoadableHome = Loadable({
@@ -16,9 +16,8 @@ const LoadableAbout = Loadable({
   loading: () => <div>Loading...</div>
 });
 
-const LoadableProducts = Loadable({
-  loader: () =>
-    import(/* webpackChunkName: 'product' */ './domain/product/Product'),
+const LoadableCars = Loadable({
+  loader: () => import(/* webpackChunkName: 'car' */ './domain/car/index'),
   loading: () => <div>Loading...</div>
 });
 
@@ -38,17 +37,17 @@ const App = props => {
         <NavLink exact to="/about" activeClassName="active">
           About
         </NavLink>
-        <NavLink exact to="/product" activeClassName="active">
-          Product
+        <NavLink exact to="/car" activeClassName="active">
+          Cars
         </NavLink>
       </nav>
       <main className="main">
         <Switch>
           <Route exact path="/" component={LoadableHome} />
           <Route path="/about" component={LoadableAbout} />
-          <ProductProvider ssrData={data}>
-            <Route path="/product" component={LoadableProducts} />
-          </ProductProvider>
+          <CarProvider ssrData={data}>
+            <Route path="/car" component={LoadableCars} />
+          </CarProvider>
         </Switch>
       </main>
       <footer />

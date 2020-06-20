@@ -1,8 +1,10 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { useCarState, useCarDispatch } from '../../state/services/context';
-import { getCar } from '../state/actions';
+import { getCar } from '../../state/services/actions';
 import useAsyncDataFetch from './Hooks/useAsyncDataFetch';
+
+import './car.scss';
 
 const BtnBack = () => {
   const goBack = () => {
@@ -12,12 +14,12 @@ const BtnBack = () => {
 
   return (
     <span className="btn btn-back" onClick={goBack}>
-      {t('labelGoBack')}
+      Go Back
     </span>
   );
 };
 
-const Car = ({ t, match }) => {
+const Car = ({ match }) => {
   const { params } = match;
   const { id } = params;
   const { car, ssr } = useCarState();
@@ -36,17 +38,17 @@ const Car = ({ t, match }) => {
       </Fragment>
     );
   return (
-    <div className="App">
+    <div className="car">
       <BtnBack />
-      <div className="title">{t('labelDetails')}</div>
+      <div className="title">Label name</div>
 
-      <div className="subtitle">{t('labelName')}</div>
+      <div className="subtitle">Label name</div>
       <div className="data">{car.name}</div>
 
-      <div className="subtitle">{t('labelColor')}</div>
+      <div className="subtitle">Label name</div>
       <div className="data">{car.color}</div>
 
-      <div className="title">{t('labelParts')}</div>
+      <div className="title">Label name</div>
       <div className="part-list" data-testid="part-list">
         {car.parts &&
           car.parts.map(u => {
@@ -70,4 +72,4 @@ Car.propTypes = {
   }).isRequired
 };
 
-export default withTranslation()(Car);
+export default Car;
